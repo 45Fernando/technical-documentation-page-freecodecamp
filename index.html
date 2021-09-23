@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Technical Documentation Page</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <title>Title of the document</title>
+</head>
+<body>
+  <nav id="navbar">
+    <header>Elixir documentation</header>
+    <ul>
+      <li><a href="#Introduccion" class="nav-link">Introduccion</a></li>
+      <li><a href="#Escabilidad" class="nav-link">Escabilidad</a></li>
+      <li><a href="#Tolerancia_al_fallo" class="nav-link">Tolerancia al fallo</a></li>
+      <li><a href="#Programacion_funcional" class="nav-link">Programacion funcional</a></li>
+      <li><a href="#Hola_mundo" class="nav-link">Hola mundo</a></li>
+      <li><a href="#Tipo_de_datos" class="nav-link">Tipo de datos</a></li>
+    <ul>  
+  </nav>
+    
+  <main id="main-doc">
+    <section id="Introduccion" class="main-section">
+      <header>
+        Introduccion
+      </header>
+      <p>Elixir es un lenguaje dinamico y funcional diseñado para construir aplicaciones escalables y mantenibles</p>
+      <p>Elixir utiliza la maquina virtual de Erlang, conocida por correr sitemas tolerantes al fallo y de poca latencia, mientras tambien es exitosamente usado en el desarrollo web, software embebido, ingestion de datos, y procesamiento multimedia</p>      
+    </section>
+    
+    <section id="Escabilidad" class="main-section">
+      <header>
+        Escabilidad
+      </header>  
+      <p>Todo el codigo de Elixir corre adentro de hilos livianos de ejecucion (llamados procesos) que estan aislados e intercambian informacion mediante mensajes:</p>
+      <code>
+        current_process = self()
+      </code> 
+      <br>
+      <br>
+      <code>
+        # Spawn an Elixir process (not an operating system one!)
+      </code> 
+      <br>
+      <code>
+        spawn_link(fn ->
+          send(current_process, {:msg, "hello world"})
+        end)
+      </code>
+      <br>
+      <code>        
+        # Block until the message is received
+      </code>
+      <br>
+      <code>  
+        receive do
+          {:msg, contents} -> IO.puts(contents)
+        end
+      </code>
+      <p>Debido a la naturaleza liviana, no es raro tener cientos de miles de procesos corriendo concurrentemente en la misma maquina. La aislacion permite recolectar la basura de los procesos de manera independiente, reduciendo las pausas del sistema, y usando todos los recursos de la maquina lo eficientemente posible (escalabilidad vertical)</p>
+      
+      <p>Los procesos tambien pueden comunicarse con otros procesos corriendo en diferentes maquinas en la misma red. Esto provee la fundacion de distribucion, permitiendo a los desarrolladores de coordinar diferente trabajo a traves de distintos nodos (escabilidad horizontal)</p>
+    </section>
+    
+    <section id="Tolerancia_al_fallo" class="main-section">
+      <header>
+        Tolerancia al fallo
+      </header>
+      <p>La inevitable verdad sobre el software ejecutandose en produccion es que las cosas iran mal. Mas si tenemos en cuenta la red, los archivos del sistema, y otros recursos de terceros</p>
+      <p>Para hacer frente a eso con esas fallas, Elixir provee supervisores los cuales describen como reiniciar partes del sistema cuando las cosas van mal, volviendo a un estado inicial donde se garantize que funcione</p>
+      <code>
+        children = [
+          TCP.Pool,
+          {TCP.Acceptor, port: 4040}
+        ]
+      </code>
+      <br>
+      <br>
+      <code>
+        Supervisor.start_link(children, strategy: :one_for_one)
+      </code>
+      <br>
+    </section> 
+    
+    <section id="Programacion_funcional" class="main-section">
+      <header>
+        Programacion funcional
+      </header>
+      <p>Programacion funcional promueve un estilo de codigo que ayuda a los desarroladores a escribir codigo que es corto, preciso, y mantenible. Por ejemplo, la coincidencia de patrones permite a los desarrolladores a desectructurar los datos y acceder a su contenido:</p>
+      <code>%User{name: name, age: age} = User.get("John Doe")</code>
+      <br>
+      <code>name #=> "John Doe"</code>
+    </section>     
+    
+    <section id="Hola_mundo" class="main-section">
+      <header>
+        Hola mundo
+      </header>
+      <p>Para escribir un hola mundo, esciba el siguiente codigo Elixir en un archivo:</p>
+      <code>
+        IO.puts "Hello world from Elixir"
+      </code>
+      <p>Salva el arhcivo como <code>simple.exs</code> y ejecutalo con <code>elixir</code>:</p>
+      <code>$ elixir simple.exs</code>
+    </section>  
+   
+    
+    <section id="Tipo_de_datos" class="main-section">
+      <header>
+        Tipo de datos
+      </header>
+      <p>Algunos de los tipos de datos basicos en Elixir son:</p>
+      <ul>
+        <li>Enteros</li>
+        <li>Reales</li>
+        <li>Booleanos</li>
+        <li>Atomos</li>
+        <li>Cadenas</li>
+        <li>Listas</li>
+        <li>Tuplas</li>
+      </ul>  
+    </section>     
+  </main>
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
